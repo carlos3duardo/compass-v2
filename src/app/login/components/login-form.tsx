@@ -1,13 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, CircleHelp, KeyRound, UserCircle } from 'lucide-react';
+import { ArrowRight, KeyRound, UserCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Card, Form } from '@/components';
+import { Card, Form } from '@/components';
 
 export function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,11 +22,6 @@ export function LoginForm() {
 
   const methods = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-      remember: false,
-    },
   });
 
   const {
@@ -54,6 +49,14 @@ export function LoginForm() {
               width={207}
               height={64}
               alt="Logotipo da Bússola da Gestão"
+              className="block dark:hidden"
+            />
+            <Image
+              src="/images/logo-bussoladagestao-dark-mode.svg"
+              width={207}
+              height={64}
+              alt="Logotipo da Bússola da Gestão"
+              className="hidden dark:block"
             />
           </figure>
           <section className="text-foreground/60 flex flex-col items-center gap-1 text-center">
@@ -118,18 +121,6 @@ export function LoginForm() {
                     >
                       Entrar
                     </Form.Submit>
-
-                    <Link href="/esqueci-minha-senha">
-                      <Button
-                        color="primary"
-                        variant="outline"
-                        icon={CircleHelp}
-                        iconSide="left"
-                        fullWidth
-                      >
-                        Esqueci minha senha
-                      </Button>
-                    </Link>
                   </div>
                 </Form.FooterSection>
               </Form.Footer>

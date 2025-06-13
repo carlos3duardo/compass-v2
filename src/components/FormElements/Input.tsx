@@ -49,7 +49,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           size={size === 'xs' ? 16 : size === 'lg' ? 24 : 16}
           weight="regular"
           data-error={!!error}
-          className="text-slate-500 data-[error=true]:text-red-500"
+          className="text-foreground data-[error=true]:text-destructive/70"
         />
       )}
       <input

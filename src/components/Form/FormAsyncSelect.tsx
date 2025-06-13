@@ -35,7 +35,7 @@ const FormAsyncSelect = ({
       name={name}
       sourceUrl={sourceUrl}
       onChange={(selectedOption) => {
-        field.onChange(selectedOption?.value || '');
+        field.onChange(selectedOption);
       }}
       defaultValue={field.value}
       defaultOptions={defaultOptions}

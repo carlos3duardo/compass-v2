@@ -38,7 +38,7 @@ export function FormControl({
         <div className={twMerge('', className)}>
           {children}
           {error && (
-            <div className="mt-1 flex items-center gap-1 pl-1 text-xs font-medium text-red-400">
+            <div className="text-destructive/70 mt-1 flex items-center gap-1 pl-1 text-xs font-medium">
               <AlertCircle size={14} />
               {error}
             </div>
