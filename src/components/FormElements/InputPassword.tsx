@@ -56,7 +56,7 @@ const InputPassword: React.ForwardRefRenderFunction<
           size={size === 'xs' ? 16 : size === 'lg' ? 24 : 20}
           weight="regular"
           data-error={!!error}
-          className="text-slate-500 data-[error=true]:text-red-500"
+          className="text-foreground/70 data-[error=true]:text-destructive/70"
         />
       )}
       <input

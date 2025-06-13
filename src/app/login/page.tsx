@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import { LoginForm } from './components/login-form';
 import { ModeToggle } from './components/mode-toggle';
+import { ThemeToggle } from './components/theme-toggle';
 
 export default function LoginPage() {
   return (
@@ -26,7 +27,8 @@ export default function LoginPage() {
         </div>
       </main>
 
-      <div className="theme-switcher absolute right-5 bottom-5">
+      <div className="theme-switcher absolute right-5 bottom-5 flex gap-2">
+        <ThemeToggle />
         <ModeToggle />
       </div>
     </>

@@ -28,7 +28,7 @@ const Checkbox: React.ForwardRefRenderFunction<
         className="peer absolute h-0 w-0 cursor-pointer opacity-0"
         {...rest}
       />
-      <div className="checkmark bg-card-background after:border-background border-primary/30 peer-checked:border-foreground peer-checked:bg-foreground relative top-0 left-0 h-5 w-5 rounded border transition"></div>
+      <div className="checkmark bg-card-background after:border-card peer-checked:border-primary peer-checked:bg-primary border-foreground/50 relative top-0 left-0 h-5 w-5 rounded border transition peer-checked:after:border-white"></div>
       {label && (
         <span data-size={size} className="text-sm data-[size=sm]:text-xs">
           {label}
