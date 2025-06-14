@@ -69,6 +69,7 @@ input:-webkit-autofill:active {
 @import '../themes/caffeine.css';
 @import '../themes/candyland.css';
 @import '../themes/claude.css';
+@import '../themes/cosmic-night.css';
 @import '../themes/cyberpunk.css';
 @import '../themes/doom64.css';
 @import '../themes/solar-dusk.css';
@@ -81,5 +82,8 @@ input:-webkit-autofill:active {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  a {
+    @apply text-brand hover:text-brand/80;
   }
 }

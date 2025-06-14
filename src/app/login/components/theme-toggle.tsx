@@ -33,6 +33,11 @@ const themes = [
     color: 'oklch(0.6171 0.1375 39.0427)',
   },
   {
+    value: 'cosmic-night',
+    label: 'Cosmic Night',
+    color: 'oklch(0.5417 0.179 288.0332)',
+  },
+  {
     value: 'cyberpunk',
     label: 'Cyberpunk',
     color: 'oklch(0.6726 0.2904 341.4084)',
