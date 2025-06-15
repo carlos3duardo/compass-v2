@@ -51,6 +51,12 @@ function DropdownMenuContent({
   );
 }
 
+function DropdownMenuArrow(
+  props: React.ComponentProps<typeof DropdownMenuPrimitive.Arrow>,
+) {
+  return <DropdownMenuPrimitive.Arrow {...props} />;
+}
+
 function DropdownMenuGroup({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
@@ -243,6 +249,7 @@ function DropdownMenuSubContent({
 
 export {
   DropdownMenu,
+  DropdownMenuArrow,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
