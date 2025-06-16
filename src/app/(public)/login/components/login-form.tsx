@@ -1,17 +1,15 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios, { isAxiosError } from 'axios';
 import { ArrowRight, KeyRound, UserCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Card, Form } from '@/components';
 
 export function LoginForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const formSchema = z.object({
     username: z.string().min(1, { message: 'Campo obrigatório.' }),
     password: z.string().min(1, { message: 'Campo obrigatório.' }),
@@ -26,17 +24,34 @@ export function LoginForm() {
 
   const {
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = methods;
 
   async function formSubmit(data: FormData) {
-    console.log({ data });
+    try {
+      const response = await axios.post('/api/auth/token', data);
 
-    setIsSubmitting(true);
+      console.log('response', response.data);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        const response = err.response;
+        const json = await response?.data;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 2000);
+        if (json.error === 'invalid_grant') {
+          setError('root.serverError', {
+            message: json.message,
+          });
+
+          return;
+        }
+
+        setError('root.serverError', {
+          message:
+            'Não foi possível realizar a autenticação. Tente novamente. Se persistir, entre em contato com o suporte.',
+        });
+      }
+    }
   }
 
   return (
