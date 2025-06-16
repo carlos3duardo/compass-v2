@@ -1,7 +1,7 @@
 :root {
   --radius: 0.65rem;
   --brand: oklch(0.6966 0.1692 39.7178);
-  --background: oklch(0.9842 0.0034 247.8575);
+  --background: oklch(96.8% 0.007 247.896);
   --foreground: oklch(0.4455 0.0374 257.2808);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.4455 0.0374 257.2808);

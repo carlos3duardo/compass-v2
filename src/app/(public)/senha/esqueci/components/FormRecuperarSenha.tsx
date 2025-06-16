@@ -1,25 +1,17 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { isAxiosError } from 'axios';
-import { ArrowRight, HelpCircle, KeyRound, UserCircle } from 'lucide-react';
+import { ArrowRight, UserCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Card, Form } from '@/components';
+import { Button, Card, Form } from '@/components';
 
-export function LoginForm() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const redirectTo = searchParams.get('redirectTo') || '/';
-
+export function FormRecuperarSenha() {
   const formSchema = z.object({
     username: z.string().min(1, { message: 'Campo obrigatório.' }),
-    password: z.string().min(1, { message: 'Campo obrigatório.' }),
-    remember: z.boolean(),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -36,11 +28,9 @@ export function LoginForm() {
 
   async function formSubmit(data: FormData) {
     try {
-      await axios.post('/api/auth/token', data);
+      const response = await axios.post('/api/auth/password-recovery', data);
 
-      router.push(redirectTo);
-
-      return;
+      console.log('response', response.data);
     } catch (err) {
       if (isAxiosError(err)) {
         const response = err.response;
@@ -84,10 +74,11 @@ export function LoginForm() {
           </figure>
           <section className="text-foreground flex flex-col items-center gap-1 text-center">
             <h1 className="text-xl leading-none font-semibold">
-              Acesso ao sistema
+              Esqueceu sua senha?
             </h1>
             <p className="text-sm leading-none opacity-80">
-              Por favor, informe suas credenciais
+              Informe o seu endereço de e-mail que enviaremos instruções de como
+              recuperar seu acesso.
             </p>
           </section>
         </Card.Header>
@@ -107,31 +98,6 @@ export function LoginForm() {
                     error={errors.username?.message}
                   />
                 </Form.Control>
-                <Form.Control
-                  label="Sua senha"
-                  className="col-span-12"
-                  error={errors.password?.message}
-                >
-                  <Form.InputPassword
-                    id="password"
-                    name="password"
-                    icon={KeyRound}
-                    error={errors.password?.message}
-                  />
-                </Form.Control>
-                <div className="col-span-12 flex items-center justify-between text-sm font-medium">
-                  <Form.Checkbox
-                    name="remember"
-                    label="Lembrar-me"
-                    error={errors.remember?.message}
-                  />
-                  <Link
-                    href="/esqueci-minha-senha"
-                    className="flex items-center gap-1"
-                  >
-                    <HelpCircle size={18} /> Esqueci minha senha
-                  </Link>
-                </div>
               </Form.Fieldset>
 
               <Form.Error />
@@ -147,24 +113,21 @@ export function LoginForm() {
                       isLoading={isSubmitting}
                       disabled={isSubmitting}
                     >
-                      Entrar
+                      Enviar
                     </Form.Submit>
+                    <div>
+                      <Link href="/login">
+                        <Button variant="ghost" fullWidth>
+                          Voltar para o login
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </Form.FooterSection>
               </Form.Footer>
             </Form.Body>
           </Form.Root>
         </Card.Content>
-        <Card.Footer>
-          <ul className="text-sm">
-            <li>
-              <Link href="/">Política de privacidade</Link>
-            </li>
-            <li>
-              <Link href="/">Uso de cookies</Link>
-            </li>
-          </ul>
-        </Card.Footer>
       </Card.Root>
     </div>
   );
