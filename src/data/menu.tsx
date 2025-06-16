@@ -25,7 +25,7 @@ export const primaryMenu: MenuItemProps[] = [
   {
     id: 2201,
     label: 'Início',
-    href: '/dashboard',
+    href: '/',
     free: true,
     icon: House,
   },

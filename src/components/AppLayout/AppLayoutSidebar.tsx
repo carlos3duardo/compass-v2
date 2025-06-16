@@ -5,7 +5,7 @@ import { CompanyLogo } from './CompanyLogo';
 
 export function AppLayoutSidebar() {
   return (
-    <aside className="bg-sidebar border-r-border fixed top-0 bottom-0 hidden flex-col gap-2 border-r lg:flex lg:w-[240px] xl:w-[260px] 2xl:w-[300px]">
+    <aside className="bg-sidebar border-r-sidebar-border fixed top-0 bottom-0 hidden flex-col gap-2 border-r lg:flex lg:w-[240px] xl:w-[260px] 2xl:w-[300px]">
       <header className="flex h-24 items-stretch justify-center px-14 py-3">
         <CompanyLogo />
       </header>

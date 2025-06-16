@@ -28,7 +28,10 @@ export function NavigationMenuItem({
   const menuContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsActive(pathname.startsWith(href));
+    setIsActive(
+      (href === '/' && pathname === '/') ||
+        (pathname.startsWith(href) && href !== '/'),
+    );
     setSubmenuIsOpen(pathname.startsWith(href));
   }, [pathname, href]);
 

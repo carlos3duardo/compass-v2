@@ -12,7 +12,7 @@ interface ComponentProps {
 
 export function AppLayoutBreadcrumbs({ breadcrumbs }: ComponentProps) {
   return (
-    <div className="flex items-center text-sm font-medium text-slate-400">
+    <div className="text-foreground/60 flex items-center text-xs font-medium">
       {breadcrumbs.map((breadcrumb, index) => {
         return (
           <div
@@ -20,7 +20,10 @@ export function AppLayoutBreadcrumbs({ breadcrumbs }: ComponentProps) {
             key={`${breadcrumb.label}.${index}`}
           >
             {breadcrumb.href ? (
-              <Link href={breadcrumb.href} className="text-slate-400">
+              <Link
+                href={breadcrumb.href}
+                className="text-foreground/60 hover:text-primary"
+              >
                 {breadcrumb.label}
               </Link>
             ) : (
