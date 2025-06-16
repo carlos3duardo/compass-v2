@@ -59,11 +59,11 @@ export function LoginForm() {
               className="hidden dark:block"
             />
           </figure>
-          <section className="text-foreground/60 flex flex-col items-center gap-1 text-center">
-            <h1 className="text-2xl leading-none font-semibold">
+          <section className="text-foreground flex flex-col items-center gap-1 text-center">
+            <h1 className="text-xl leading-none font-semibold">
               Acesso ao sistema
             </h1>
-            <p className="text-sm leading-none">
+            <p className="text-sm leading-none opacity-80">
               Por favor, informe suas credenciais
             </p>
           </section>

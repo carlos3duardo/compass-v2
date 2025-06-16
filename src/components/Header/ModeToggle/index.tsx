@@ -6,7 +6,10 @@ import { useTheme } from 'next-themes';
 import { DropdownMenu } from '../../DropdownMenu';
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
+
+  console.log('Current theme:', theme);
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>

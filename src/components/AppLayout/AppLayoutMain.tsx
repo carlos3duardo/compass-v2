@@ -9,8 +9,7 @@ interface AppLayoutMainProps {
 export function AppLayoutMain({ children }: AppLayoutMainProps) {
   return (
     <div className="flex flex-1 flex-col justify-between gap-2 lg:ml-[240px] xl:ml-[260px] 2xl:ml-[300px]">
-      <AppLayout.Header />
-      <main className="flex-1 px-8">{children}</main>
+      {children}
       <AppLayout.Footer />
     </div>
   );

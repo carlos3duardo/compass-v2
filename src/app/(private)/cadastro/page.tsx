@@ -1,13 +1,19 @@
 import { Metadata } from 'next';
 
+import { AppLayout } from '@/components';
+
 export const metadata: Metadata = {
-  title: 'Cadastros',
+  title: 'Cadastro',
 };
 
-export default function Page() {
+export default function CadastroPage() {
   return (
-    <div>
-      <h1>Página de cadastros</h1>
-    </div>
+    <>
+      <AppLayout.Header
+        title="Central de cadastros"
+        description="Visualize e gerencie os dados cadastrados"
+      />
+      <AppLayout.Content>Página de cadastro</AppLayout.Content>
+    </>
   );
 }

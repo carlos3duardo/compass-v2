@@ -56,7 +56,10 @@ function DropdownMenuArrow({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Arrow>) {
   return (
-    <DropdownMenuPrimitive.Arrow className={cn('', className)} {...props} />
+    <DropdownMenuPrimitive.Arrow
+      className={cn('fill-border', className)}
+      {...props}
+    />
   );
 }
 
