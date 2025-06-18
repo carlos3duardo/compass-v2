@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: 'jarvis.localhost',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.bussoladagestao.com.br',
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
         hostname: 'images.unsplash.com',
         pathname: '/**',

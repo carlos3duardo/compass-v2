@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import axios from 'axios';
 import crypto from 'crypto';
+import { cookies } from 'next/headers';
 
 import { app } from '@/config';
 
@@ -77,4 +78,20 @@ export async function createUserSessionId({
   };
 
   return { sessionId, accessToken, expiresIn, usuario: usuarioInfo };
+}
+
+export async function getAccessToken() {
+  const cookieStore = await cookies();
+
+  const sessionId = cookieStore.has('__bg_sessionId')
+    ? cookieStore.get('__bg_sessionId')!.value
+    : null;
+
+  if (!sessionId) return null;
+
+  return await redis.get(sessionId, (err, value) => {
+    if (err) return null;
+
+    return value;
+  });
 }

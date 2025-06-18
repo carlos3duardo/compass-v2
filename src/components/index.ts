@@ -1,6 +1,8 @@
 import { AppLayout } from './AppLayout';
 import Button from './Button';
 import { Card } from './Card';
+import { DataTable } from './DataTable';
+import { DataTableColumnProps } from './DataTable';
 import { DropdownMenu } from './DropdownMenu';
 import { Form } from './Form';
 import Input from './FormElements/Input';
@@ -14,6 +16,7 @@ export {
   AppLayout,
   Button,
   Card,
+  DataTable,
   DropdownMenu,
   Form,
   Input,
@@ -23,3 +26,5 @@ export {
   Popover,
   UserMenu,
 };
+
+export type { DataTableColumnProps };

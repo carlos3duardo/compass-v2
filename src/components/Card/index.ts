@@ -1,19 +1,15 @@
-import {
-  Card as CardRoot,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/shadcn/ui/card';
+import { CardBody } from './CardBody';
+import { CardFooter } from './CardFooter';
+import { CardFooterSection } from './CardFooterSection';
+import { CardHeader } from './CardHeader';
+import { CardHeaderSection } from './CardHeaderSection';
+import { CardRoot } from './CardRoot';
 
 export const Card = {
   Root: CardRoot,
   Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Content: CardContent,
+  HeaderSection: CardHeaderSection,
+  Body: CardBody,
   Footer: CardFooter,
-  Action: CardAction,
+  FooterSection: CardFooterSection,
 };

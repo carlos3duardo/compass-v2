@@ -2,8 +2,10 @@ import { Metadata } from 'next';
 
 import { AppLayout } from '@/components';
 
+import { ColaboradorTabela } from './components/ColaboradorTabela';
+
 export const metadata: Metadata = {
-  title: 'Cadastro',
+  title: 'Colaboradores',
 };
 
 export default function CadastroPage() {
@@ -17,7 +19,9 @@ export default function CadastroPage() {
           { label: 'Colaboradores', href: '/cadastro/colaborador' },
         ]}
       />
-      <AppLayout.Content>Página de cadastro</AppLayout.Content>
+      <AppLayout.Content>
+        <ColaboradorTabela />
+      </AppLayout.Content>
     </>
   );
 }

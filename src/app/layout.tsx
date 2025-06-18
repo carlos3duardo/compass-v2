@@ -1,9 +1,14 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Geist, Inter, JetBrains_Mono } from 'next/font/google';
 
-import { ThemeProvider } from '@/providers';
+import AppProviders from './providers';
+
+const geist = Geist({
+  variable: '--font-geist',
+  subsets: ['latin'],
+});
 
 const inter = Inter({
   variable: '--font-inter',
@@ -30,16 +35,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" data-color-theme="cosmic-blue" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetBrainsMono.variable} antialiased`}
+        className={`${geist.variable} ${inter.variable} ${jetBrainsMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
