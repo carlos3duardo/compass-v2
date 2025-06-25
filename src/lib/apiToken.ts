@@ -80,6 +80,18 @@ export async function createUserSessionId({
   return { sessionId, accessToken, expiresIn, usuario: usuarioInfo };
 }
 
+export async function deleteUserSessionId() {
+  const cookieStore = await cookies();
+
+  const sessionId = cookieStore.has('__bg_sessionId')
+    ? cookieStore.get('__bg_sessionId')!.value
+    : null;
+
+  if (sessionId === null) return;
+
+  await redis.del(sessionId);
+}
+
 export async function getAccessToken() {
   const cookieStore = await cookies();
 

@@ -2,7 +2,7 @@ import { add } from 'date-fns';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { httpResponse } from '@/data';
-import { createUserSessionId } from '@/lib/apiToken';
+import { createUserSessionId, deleteUserSessionId } from '@/lib/apiToken';
 
 export async function POST(request: NextRequest) {
   const json = await request.json();
@@ -38,6 +38,20 @@ export async function POST(request: NextRequest) {
     expires: remember ? add(new Date(), { seconds: expiresIn }) : undefined,
     path: '/',
   });
+
+  return nextResponse;
+}
+
+export async function DELETE() {
+  await deleteUserSessionId();
+
+  const nextResponse = NextResponse.json(
+    { message: 'Usuário desconectado com sucesso.' },
+    { status: httpResponse.OK },
+  );
+
+  nextResponse.cookies.delete('__bg_sessionId');
+  nextResponse.cookies.delete('__bg_userinfo');
 
   return nextResponse;
 }
