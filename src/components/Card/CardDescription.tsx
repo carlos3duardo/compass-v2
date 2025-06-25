@@ -1,13 +1,13 @@
 import { twMerge } from 'tailwind-merge';
 
-export function CardSeparator({
+export function CardDescription({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="card-separator"
-      className={twMerge('bg-border h-[1px] w-full', className)}
+      data-slot="card-description"
+      className={twMerge('text-muted-foreground text-sm', className)}
       {...props}
     />
   );
