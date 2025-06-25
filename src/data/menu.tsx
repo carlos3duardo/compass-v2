@@ -2,6 +2,8 @@
 import { Files, Folder, House, LogOut, Settings2, Users } from 'lucide-react';
 import { ElementType } from 'react';
 
+import { colaboradorSituacao } from './colaborador-situacao';
+
 export type SubmenuItemProps = {
   id: number;
   label: string;
@@ -39,7 +41,7 @@ export const primaryMenu: MenuItemProps[] = [
       {
         id: 1,
         label: 'Colaboradores',
-        href: '/cadastro/colaborador',
+        href: `/cadastro/colaborador?situacaoId=${colaboradorSituacao.ATIVO}`,
       },
       {
         id: 2,

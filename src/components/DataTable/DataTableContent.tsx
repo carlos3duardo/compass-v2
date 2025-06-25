@@ -6,7 +6,13 @@ import { get } from 'lodash';
 import Lottie from 'lottie-react';
 import md5 from 'md5';
 import { useSearchParams } from 'next/navigation';
-import { CSSProperties, ReactNode, useContext, useEffect } from 'react';
+import {
+  CSSProperties,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import errorIcon from '@/assets/lotties/network-error.json';
@@ -16,13 +22,7 @@ import loadingIcon from '@/assets/lotties/table-loading.json';
 import { Card } from '../Card';
 import { DataTableContext } from './DataTableProvider';
 
-type FilterProps = {
-  field: string;
-  type: 'radio' | 'checkbox' | 'select';
-  options: { label: string; value: string }[];
-};
-
-type QueryParams = Record<string, string | number | boolean>;
+type QueryParams = Record<string, string>;
 
 export type ColumnProps = {
   field: string;
@@ -35,21 +35,20 @@ export type ColumnProps = {
   orderable?: boolean;
   content?: (data: string | unknown) => ReactNode;
 };
-interface ComponentProps {
+
+interface TableContentProps {
   queryId: string;
   columns: ColumnProps[];
   dataSrc: string;
-  defaultParams?: QueryParams;
-  filter?: FilterProps[];
-  emptyTableMessage?: string;
-  userCanChangePageSize?: boolean;
+  params?: QueryParams;
 }
 
-export function DataTableContent({
+function TableContent({
   queryId,
   dataSrc,
+  params,
   columns,
-}: ComponentProps) {
+}: TableContentProps) {
   const { setRowsCount, setPagesCount, pageSize } =
     useContext(DataTableContext);
 
@@ -60,13 +59,13 @@ export function DataTableContent({
   const search = searchParams.get('search') || '';
 
   const { isSuccess, data, isLoading, isError, error } = useQuery({
-    queryKey: [queryId, dataSrc, offset, limit, search],
+    queryKey: [queryId, dataSrc, offset, limit, search, params],
     queryFn: async () => {
       try {
         const response = await axios({
           method: 'get',
           url: dataSrc,
-          params: { offset, limit, search },
+          params: params,
         });
 
         return response.data;
@@ -229,4 +228,46 @@ export function DataTableContent({
       </Card.Body>
     );
   }
+  // fim
+}
+
+interface DataTableContentProps {
+  queryId: string;
+  columns: ColumnProps[];
+  dataSrc: string;
+  defaultParams?: QueryParams;
+  emptyTableMessage?: string;
+  userCanChangePageSize?: boolean;
+}
+
+export function DataTableContent({
+  queryId,
+  dataSrc,
+  defaultParams = {},
+  columns,
+}: DataTableContentProps) {
+  const searchParams = useSearchParams();
+
+  const queryParams = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+
+    Object.entries(defaultParams || {}).forEach(([key, value]) => {
+      if (!searchParams.has(key)) {
+        params.set(key, value.toString());
+      }
+    });
+
+    return Object.fromEntries(params) as QueryParams;
+  }, [defaultParams, searchParams]);
+
+  return (
+    <div>
+      <TableContent
+        queryId={queryId}
+        dataSrc={dataSrc}
+        params={queryParams()}
+        columns={columns}
+      />
+    </div>
+  );
 }

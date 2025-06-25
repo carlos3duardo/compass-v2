@@ -91,7 +91,7 @@ export function LoginForm() {
             </p>
           </section>
         </Card.Header>
-        <Card.Content>
+        <Card.Body>
           <Form.Root {...methods}>
             <Form.Body onSubmit={handleSubmit(formSubmit)}>
               <Form.Fieldset className="px-0 xl:px-0">
@@ -154,7 +154,7 @@ export function LoginForm() {
               </Form.Footer>
             </Form.Body>
           </Form.Root>
-        </Card.Content>
+        </Card.Body>
         <Card.Footer>
           <ul className="text-sm">
             <li>

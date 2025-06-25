@@ -1,0 +1,9 @@
+export const colaboradorSituacao = {
+  ATIVO: 'f877056c-f073-46e3-b74d-59ef3c271e72',
+  SUSPENSO: 'c0c83085-6852-4bb3-b0bc-a97679841fa9',
+  DESLIGADO: '9938d756-4a13-43cb-b21b-9aa34efc5f96',
+  FERIAS: '0ba7087f-3e53-4d13-abe2-c88c563c1d08',
+  LICENCA: 'afe1b7da-18a2-4336-e89e-502d168da3f4',
+  AFASTADO: '5593e338-56f8-4415-9845-5d41d27864f2',
+  OUTROS: '74d7fb3b-da16-4040-c23e-4b5fb3af9137',
+};
