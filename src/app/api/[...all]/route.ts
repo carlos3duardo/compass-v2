@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { app } from '@/config';
@@ -9,21 +10,30 @@ async function handleRequest(req: NextRequest) {
   const url = new URL(app.apiUrl + req.nextUrl.pathname.replace('/api', ''));
   url.search = req.nextUrl.search;
 
-  const headers = new Headers();
-  headers.set('Authorization', `Bearer ${accessToken}`);
-  headers.set(
-    'Content-Type',
-    req.headers.get('Content-Type') || 'application/json',
-  );
+  const axiosHeaders = {
+    Authorization: `Bearer ${accessToken}`,
+    Accept: 'application/json',
+    'Content-Type': req.headers.get('Content-Type') || 'application/json',
+  };
 
-  const response = await fetch(url.toString(), {
+  const contentType = req.headers.get('Content-Type');
+
+  const body = await (contentType === 'application/json'
+    ? req.json()
+    : req.formData());
+
+  return await axios({
+    url: url.toString(),
     method: req.method,
-    headers,
-    body: req.method !== 'GET' ? await req.text() : undefined,
-  });
-
-  const data = await response.json();
-  return NextResponse.json(data, { status: response.status });
+    data: body,
+    headers: axiosHeaders,
+  })
+    .then((response) => {
+      return NextResponse.json(response.data, { status: response.status });
+    })
+    .catch(function (error) {
+      return NextResponse.json(error.response.data, { status: 500 });
+    });
 }
 
 export async function GET(req: NextRequest) {
