@@ -1,4 +1,10 @@
-import { AppLayout, ModeToggle, Notifications, UserMenu } from '@/components';
+import {
+  AppLayout,
+  ModeToggle,
+  Notifications,
+  ScreenSizeViewer,
+  UserMenu,
+} from '@/components';
 
 type BreadcrumbProps = {
   label: string;
@@ -38,6 +44,7 @@ export function AppLayoutHeader({
         <div className="flex items-center gap-3">
           <div className="px-3">{children}</div>
           <div role="menu" className="flex items-center gap-1 rounded p-1">
+            <ScreenSizeViewer />
             <Notifications />
             <ModeToggle />
           </div>

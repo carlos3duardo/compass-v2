@@ -1,4 +1,5 @@
 import { AppLayout } from './AppLayout';
+import { Badge } from './Badge';
 import Button from './Button';
 import { Card } from './Card';
 import { DataTable } from './DataTable';
@@ -11,9 +12,11 @@ import { Notifications } from './Header/Notifications';
 import { UserMenu } from './Header/UserMenu';
 import { NavigationMenu } from './NavigatioMenu/NavigationMenu';
 import { Popover } from './Popover';
+import ScreenSizeViewer from './ScreenSizeViewer';
 
 export {
   AppLayout,
+  Badge,
   Button,
   Card,
   DataTable,
@@ -24,6 +27,7 @@ export {
   NavigationMenu,
   Notifications,
   Popover,
+  ScreenSizeViewer,
   UserMenu,
 };
 

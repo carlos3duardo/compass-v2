@@ -82,7 +82,7 @@ export function FormRecuperarSenha() {
             </p>
           </section>
         </Card.Header>
-        <Card.Content>
+        <Card.Body>
           <Form.Root {...methods}>
             <Form.Body onSubmit={handleSubmit(formSubmit)}>
               <Form.Fieldset className="px-0 xl:px-0">
@@ -127,58 +127,8 @@ export function FormRecuperarSenha() {
               </Form.Footer>
             </Form.Body>
           </Form.Root>
-        </Card.Content>
+        </Card.Body>
       </Card.Root>
     </div>
   );
-
-  /*
-
-  return (
-    <Card className="relative w-full">
-      formulário de login
-      <div className="flex w-full flex-col gap-6 p-12">
-        <figure className="flex justify-center">
-          <Image
-            src="/images/logo-bussoladagestao-light-mode.svg"
-            width={207}
-            height={64}
-            alt="Logotipo da Bússola da Gestão"
-          />
-        </figure>
-        <Form {...methods}>
-          <form onSubmit={handleSubmit(formSubmit)} className="space-y-8">
-            <FormField
-              control={control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Usuário</FormLabel>
-                  <FormControl>
-                    <Input placeholder="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Senha</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </Form>
-      </div>
-    </Card>
-  );
-  */
 }

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { AppLayout } from '@/components';
 
@@ -20,7 +21,9 @@ export default function CadastroPage() {
         ]}
       />
       <AppLayout.Content>
-        <CargoTabela />
+        <Suspense>
+          <CargoTabela />
+        </Suspense>
       </AppLayout.Content>
     </>
   );

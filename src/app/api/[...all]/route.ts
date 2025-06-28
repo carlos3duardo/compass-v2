@@ -16,16 +16,22 @@ async function handleRequest(req: NextRequest) {
     'Content-Type': req.headers.get('Content-Type') || 'application/json',
   };
 
-  const contentType = req.headers.get('Content-Type');
+  let requestBody: unknown;
 
-  const body = await (contentType === 'application/json'
-    ? req.json()
-    : req.formData());
+  if (req.method !== 'GET') {
+    const contentType = req.headers.get('Content-Type') || '';
+
+    if (contentType.includes('application/json')) {
+      requestBody = await req.json();
+    } else {
+      requestBody = await req.formData();
+    }
+  }
 
   return await axios({
     url: url.toString(),
     method: req.method,
-    data: body,
+    data: requestBody,
     headers: axiosHeaders,
   })
     .then((response) => {

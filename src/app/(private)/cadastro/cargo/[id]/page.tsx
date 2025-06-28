@@ -2,12 +2,15 @@ import { AppLayout, Card } from '@/components';
 import { capitalize } from '@/helpers';
 import { getCargo } from '@/lib';
 
+import { Colaboradores } from './components/Colaboradores';
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const cargo = await getCargo(params.id);
+export async function generateMetadata({ params }: PageProps) {
+  const id = (await params).id;
+  const cargo = await getCargo(id);
 
   if (!cargo) return null;
 
@@ -19,7 +22,6 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
 export default async function Page({ params }: PageProps) {
   const id = (await params).id;
-
   const cargo = await getCargo(id);
 
   if (!cargo) return null;
@@ -42,9 +44,22 @@ export default async function Page({ params }: PageProps) {
         <Card.Root>
           <Card.Header>
             <Card.HeaderSection>
-              <Card.Title>{capitalize(cargo.nome)}</Card.Title>
+              <Card.Title>
+                <div className="flex items-center gap-4">
+                  {capitalize(cargo.nome)}
+                  <span
+                    data-value={cargo.situacao}
+                    className="flex items-center gap-1 rounded border border-emerald-200 bg-emerald-100 px-1 text-xs text-emerald-400 data-[value=INATIVO]:border-red-200 data-[value=INATIVO]:bg-red-100 data-[value=INATIVO]:text-red-400 dark:border-emerald-800 dark:bg-emerald-900 dark:data-[value=INATIVO]:border-red-900 dark:data-[value=INATIVO]:bg-red-950"
+                  >
+                    <span
+                      data-value={cargo.situacao}
+                      className="h-1 w-1 rounded-full bg-emerald-400 data-[value=INATIVO]:bg-red-400"
+                    />
+                    {cargo.situacao}
+                  </span>
+                </div>
+              </Card.Title>
             </Card.HeaderSection>
-            <Card.HeaderSection>{cargo.situacao}</Card.HeaderSection>
           </Card.Header>
           <Card.Separator />
           <Card.Body>
@@ -60,7 +75,9 @@ export default async function Page({ params }: PageProps) {
                   <em>Cargo sem descrição</em>
                 </div>
               )}
-              <div className="w-full xl:w-1/2">Colaboradores</div>
+              <div className="w-full xl:w-1/2">
+                <Colaboradores cargoId={id} />
+              </div>
             </div>
           </Card.Body>
         </Card.Root>
