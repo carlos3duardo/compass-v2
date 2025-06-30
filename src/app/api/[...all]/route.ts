@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { app } from '@/config';
+import { httpResponse } from '@/data';
 import { getAccessToken } from '@/lib/apiToken';
 
 async function handleRequest(req: NextRequest) {
@@ -18,7 +19,7 @@ async function handleRequest(req: NextRequest) {
 
   let requestBody: unknown;
 
-  if (req.method !== 'GET') {
+  if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
     const contentType = req.headers.get('Content-Type') || '';
 
     if (contentType.includes('application/json')) {
@@ -28,18 +29,33 @@ async function handleRequest(req: NextRequest) {
     }
   }
 
-  return await axios({
-    url: url.toString(),
-    method: req.method,
-    data: requestBody,
-    headers: axiosHeaders,
-  })
-    .then((response) => {
-      return NextResponse.json(response.data, { status: response.status });
-    })
-    .catch(function (error) {
-      return NextResponse.json(error.response.data, { status: 500 });
+  try {
+    const response = await axios({
+      url: url.toString(),
+      method: req.method,
+      data: requestBody,
+      headers: axiosHeaders,
     });
+
+    if (response.status === httpResponse.NO_CONTENT) {
+      return new Response(null, { status: httpResponse.NO_CONTENT });
+    }
+
+    return NextResponse.json(response.data, { status: response.status });
+  } catch (err) {
+    if (isAxiosError(err)) {
+      const response = err.response;
+      const json = await response?.data;
+
+      if (response && json) {
+        return NextResponse.json(json, { status: response?.status });
+      }
+    }
+
+    console.log(err);
+
+    return NextResponse.json({ message: 'Server Error' }, { status: 500 });
+  }
 }
 
 export async function GET(req: NextRequest) {

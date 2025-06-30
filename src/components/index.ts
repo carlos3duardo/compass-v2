@@ -4,6 +4,7 @@ import Button from './Button';
 import { Card } from './Card';
 import { DataTable } from './DataTable';
 import { DataTableColumnProps } from './DataTable';
+import { Dialog } from './Dialog';
 import { DropdownMenu } from './DropdownMenu';
 import { Form } from './Form';
 import Input from './FormElements/Input';
@@ -20,6 +21,7 @@ export {
   Button,
   Card,
   DataTable,
+  Dialog,
   DropdownMenu,
   Form,
   Input,

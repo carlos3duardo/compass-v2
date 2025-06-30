@@ -5,15 +5,23 @@ import { ApiCargoProps } from '@/types';
 
 import { getAccessToken } from '../apiToken';
 
-export const getCargo = cache(async (id: string) => {
+interface Props {
+  id: string;
+  relationships?: string[];
+}
+
+export const getCargo = cache(async ({ id, relationships = [] }: Props) => {
   const accessToken = await getAccessToken();
 
   try {
-    const response = axios.get(`${process.env.API_URL}/cargo/${id}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+    const response = axios.get(
+      `${process.env.API_URL}/cargo/${id}?with=${relationships.join(',')}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
-    });
+    );
 
     return (await response).data as ApiCargoProps;
   } catch (error) {

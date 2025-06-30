@@ -45,7 +45,7 @@ const Message = ({ message, description, type }: MessageProps) => (
 export function notification(notify: NotificationProps) {
   const options = {
     type: notify.type || 'default',
-    position: notify.position || 'top-center',
+    position: notify.position || 'top-right',
     autoClose: notify.autoClose ?? 5000,
     hideProgressBar: notify.hideProgressBar || false,
     closeOnClick: notify.closeOnClick || true,

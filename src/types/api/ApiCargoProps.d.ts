@@ -1,7 +1,15 @@
 type ColaboradorProps = {
   id: string;
   nome: string;
-  avatarUrl: string | null;
+  email: string;
+  avatar_url: string | null;
+  situacao: {
+    id: string;
+    nome: string;
+    cor: string;
+    ativo: boolean;
+    login: boolean;
+  };
 };
 
 export interface ApiCargoProps {

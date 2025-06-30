@@ -1,8 +1,8 @@
-import { AppLayout } from '@/components';
+import { AppLayout, Card } from '@/components';
 import { capitalize } from '@/helpers';
 import { getCargo } from '@/lib';
 
-import { CargoView } from '../components/CargoView';
+import { CargoFormulario } from '../../components/CargoFormulario';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -10,19 +10,19 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const id = (await params).id;
-  const cargo = await getCargo({ id: id, relationships: ['colaboradores'] });
+  const cargo = await getCargo({ id: id });
 
   if (!cargo) return null;
 
   return {
-    title: capitalize(cargo.nome),
+    title: `Editar cargo: ${capitalize(cargo.nome)}`,
     description: cargo?.descricao,
   };
 }
 
 export default async function Page({ params }: PageProps) {
   const id = (await params).id;
-  const cargo = await getCargo({ id: id, relationships: ['colaboradores'] });
+  const cargo = await getCargo({ id: id });
 
   if (!cargo) return null;
 
@@ -38,10 +38,21 @@ export default async function Page({ params }: PageProps) {
             label: 'Visualizar cargo',
             href: `/cadastro/cargo/${id}`,
           },
+          { label: 'Editar', href: `/cadastro/cargo/${id}/editar` },
         ]}
       />
       <AppLayout.Content>
-        <CargoView cargo={cargo} />
+        <Card.Root>
+          <Card.Header>
+            <Card.HeaderSection>
+              <Card.Title>{capitalize(cargo.nome)}</Card.Title>
+            </Card.HeaderSection>
+          </Card.Header>
+          <Card.Separator />
+          <Card.Body nopadding>
+            <CargoFormulario cargo={cargo} />
+          </Card.Body>
+        </Card.Root>
       </AppLayout.Content>
     </>
   );

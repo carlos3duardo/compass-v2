@@ -3,15 +3,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { initials } from '@/helpers';
-import { getColaboradores } from '@/lib';
+
+type ColaboradorProps = {
+  id: string;
+  nome: string;
+  email: string;
+  avatar_url: string | null;
+  situacao: {
+    id: string;
+    nome: string;
+    ativo: boolean;
+    login: boolean;
+  };
+};
 
 interface ComponentProps {
-  cargoId: string;
+  colaboradores: ColaboradorProps[];
 }
 
-export async function Colaboradores({ cargoId }: ComponentProps) {
-  const colaboradores = await getColaboradores({ cargoId, all: true });
-
+export function Colaboradores({ colaboradores }: ComponentProps) {
   return (
     <div className="bg-muted rounded p-4 2xl:p-6">
       <strong>Colaboradores</strong>
@@ -25,10 +35,10 @@ export async function Colaboradores({ cargoId }: ComponentProps) {
                 className="col-span-2 flex items-center gap-2 md:col-span-1 lg:col-span-2 xl:col-span-1"
               >
                 <figure className="w-[38px]">
-                  {colaborador.usuario.avatar_url ? (
+                  {colaborador.avatar_url ? (
                     <Image
                       src={
-                        colaborador.usuario.avatar_url ||
+                        colaborador.avatar_url ||
                         '/images/avatar-placeholder.jpg'
                       }
                       alt="avatar"
@@ -43,19 +53,17 @@ export async function Colaboradores({ cargoId }: ComponentProps) {
                     />
                   ) : (
                     <Avvvatars
-                      value={colaborador.usuario.email}
-                      displayValue={initials(colaborador.usuario.nome)}
+                      value={colaborador.email}
+                      displayValue={initials(colaborador.nome)}
                       size={38}
                     />
                   )}
                 </figure>
                 <div className="text-sm leading-none">
                   <Link href={`/cadastro/colaborador/${colaborador.id}`}>
-                    <span className="font-medium">
-                      {colaborador.usuario.nome}
-                    </span>
+                    <span className="font-medium">{colaborador.nome}</span>
                     <br />
-                    {colaborador.usuario.email}
+                    {colaborador.email}
                   </Link>
                 </div>
               </li>
