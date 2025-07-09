@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 
 import { Button, Card, Dialog } from '@/components';
-import { capitalize, maskCep, maskCnpj } from '@/helpers';
+import { maskCep, maskCnpj } from '@/helpers';
 import { notification } from '@/lib/client';
 import { ApiUnidadeProps } from '@/types';
 
@@ -44,7 +44,7 @@ export function UnidadeView({ unidade }: ComponentProps) {
       <Card.Root>
         <Card.Header>
           <Card.HeaderSection>
-            <Card.Title>{capitalize(unidade.nome)}</Card.Title>
+            <Card.Title>Informações da unidade</Card.Title>
           </Card.HeaderSection>
         </Card.Header>
         <Card.Separator />
@@ -59,7 +59,7 @@ export function UnidadeView({ unidade }: ComponentProps) {
             label="Código"
             className="col-span-12 md:col-span-6 xl:col-span-4"
           >
-            {unidade.codigo}
+            {unidade.codigo || <>&nbsp;</>}
           </Card.GridItem>
           <Card.GridItem
             label="CNPJ"
@@ -72,7 +72,8 @@ export function UnidadeView({ unidade }: ComponentProps) {
             label="Endereço"
             className="col-span-12 md:col-span-6 xl:col-span-5"
           >
-            {unidade.logradouro} {unidade.numero} {unidade.complemento}
+            {unidade.logradouro || <>&nbsp;</>} {unidade.numero}{' '}
+            {unidade.complemento}
           </Card.GridItem>
           <Card.GridItem
             label="Bairro"
@@ -90,7 +91,7 @@ export function UnidadeView({ unidade }: ComponentProps) {
             label="Município / UF"
             className="col-span-12 md:col-span-6 xl:col-span-5"
           >
-            {unidade.municipio} / {unidade.uf}
+            {unidade.municipio || <>&nbsp;</>} / {unidade.uf}
           </Card.GridItem>
           <Card.GridItem
             label="Responsável"

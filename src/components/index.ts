@@ -6,6 +6,7 @@ import { DataTable } from './DataTable';
 import { DataTableColumnProps } from './DataTable';
 import { Dialog } from './Dialog';
 import { DropdownMenu } from './DropdownMenu';
+import { NotFoundError } from './Errors/NotFoundError';
 import { Form } from './Form';
 import Input from './FormElements/Input';
 import { ModeToggle } from './Header/ModeToggle';
@@ -27,6 +28,7 @@ export {
   Input,
   ModeToggle,
   NavigationMenu,
+  NotFoundError,
   Notifications,
   Popover,
   ScreenSizeViewer,

@@ -21,7 +21,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
   const formSchema = z.object({
     nome: z
       .string()
-      .min(1, { message: 'Campo obrigatório.' })
+      .min(5, { message: 'Campo não pode possuir menos de 5 caracteres.' })
       .max(64, { message: 'Campo não pode ultrapassar 64 caracteres.' }),
     codigo: z.string().optional().or(z.literal('')),
     cnpj: z.string().optional().or(z.literal('')),
@@ -80,7 +80,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
 
         router.push(`/cadastro/unidade/${unidade?.id}`);
       } else {
-        const response = await axios.post('/api/cargo', formData);
+        const response = await axios.post('/api/unidade', formData);
         const responseData = response.data;
 
         router.push(`/cadastro/unidade/${responseData.data.id}`);

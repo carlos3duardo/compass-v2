@@ -14,17 +14,23 @@ export const getUnidade = cache(async ({ id, relationships = [] }: Props) => {
   const accessToken = await getAccessToken();
 
   try {
-    const response = axios.get(
+    const response = await axios.get(
       `${process.env.API_URL}/unidade/${id}?with=${relationships.join(',')}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+        validateStatus: (status) => status < 500, // Aceita códigos 2xx, 3xx e 4xx
       },
     );
 
-    return (await response).data as ApiUnidadeProps;
+    if (response.status === 404) {
+      return null;
+    }
+
+    return response.data as ApiUnidadeProps;
   } catch (error) {
     console.error(error);
+    return null;
   }
 });

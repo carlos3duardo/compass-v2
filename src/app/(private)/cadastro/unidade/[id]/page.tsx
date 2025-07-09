@@ -1,4 +1,4 @@
-import { AppLayout } from '@/components';
+import { AppLayout, NotFoundError } from '@/components';
 import { capitalize } from '@/helpers';
 import { getUnidade } from '@/lib';
 
@@ -23,12 +23,12 @@ export default async function Page({ params }: PageProps) {
   const id = (await params).id;
   const unidade = await getUnidade({ id: id });
 
-  if (!unidade) return null;
+  if (!unidade) return <NotFoundError message="Unidade não encontrada." />;
 
   return (
     <>
       <AppLayout.Header
-        title={`Cargo: ${capitalize(unidade.nome)}`}
+        title={`Unidade: ${capitalize(unidade.nome)}`}
         breadcrumbs={[
           { label: 'Início', href: '/' },
           { label: 'Cadastro', href: '/cadastro' },
