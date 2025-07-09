@@ -140,7 +140,6 @@ export function LoginForm() {
                 <Form.FooterSection>
                   <div className="flex w-full flex-col gap-2">
                     <Form.Submit
-                      color="primary"
                       icon={ArrowRight}
                       iconSide="right"
                       fullWidth

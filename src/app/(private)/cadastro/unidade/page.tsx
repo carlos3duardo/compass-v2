@@ -1,12 +1,15 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { AppLayout } from '@/components';
+
+import { UnidadeTabela } from './_components/UnidadeTabela';
 
 export const metadata: Metadata = {
   title: 'Unidades',
 };
 
-export default function CadastroPage() {
+export default function Page() {
   return (
     <>
       <AppLayout.Header
@@ -17,7 +20,11 @@ export default function CadastroPage() {
           { label: 'Unidades', href: '/cadastro/unidade' },
         ]}
       />
-      <AppLayout.Content>Unidades</AppLayout.Content>
+      <AppLayout.Content>
+        <Suspense>
+          <UnidadeTabela />
+        </Suspense>
+      </AppLayout.Content>
     </>
   );
 }

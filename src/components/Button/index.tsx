@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        solid: '',
+        solid: 'text-primary-foreground',
         flat: '',
         surface: '',
         outline: '',
@@ -17,8 +17,7 @@ const buttonVariants = cva(
         plain: '',
       },
       color: {
-        primary:
-          'bg-primary text-primary-foreground dark:text-white/90 hover:bg-primary/90',
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/90',
         success: 'bg-green-600 text-white hover:bg-green-600/90',

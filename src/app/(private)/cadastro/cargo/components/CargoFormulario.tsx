@@ -60,9 +60,16 @@ export function CargoFormulario({ cargo }: ComponentProps) {
     };
 
     try {
-      await axios.put(`/api/cargo/${cargo?.id}`, formData);
+      if (cargo) {
+        await axios.put(`/api/cargo/${cargo?.id}`, formData);
 
-      router.push(`/cadastro/cargo/${cargo?.id}`);
+        router.push(`/cadastro/cargo/${cargo?.id}`);
+      } else {
+        const response = await axios.post('/api/cargo', formData);
+        const postData = response.data;
+
+        router.push(`/cadastro/cargo/${postData.data.id}`);
+      }
     } catch (err) {
       console.error(err);
       if (isAxiosError(err)) {
@@ -76,37 +83,9 @@ export function CargoFormulario({ cargo }: ComponentProps) {
 
       setError('root.serverError', {
         message:
-          'Não foi possível realizar a autenticação. Tente novamente. Se persistir, entre em contato com o suporte.',
+          'Não foi possível realizar a operação devido a um erro desconhecido.',
       });
     }
-
-    /*
-    try {
-      await axios.post('/api/auth/token', data);
-
-      router.push(redirectTo);
-
-      return;
-    } catch (err) {
-      if (isAxiosError(err)) {
-        const response = err.response;
-        const json = await response?.data;
-
-        if (json.error === 'invalid_grant') {
-          setError('root.serverError', {
-            message: json.message,
-          });
-
-          return;
-        }
-
-        setError('root.serverError', {
-          message:
-            'Não foi possível realizar a autenticação. Tente novamente. Se persistir, entre em contato com o suporte.',
-        });
-      }
-    }
-    */
   }
 
   return (

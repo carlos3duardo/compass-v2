@@ -25,7 +25,7 @@ export function AppLayoutHeader({
   children,
 }: AppLayoutHeaderProps) {
   return (
-    <header className="sticky top-0 right-0 left-0 flex h-20 items-center justify-between gap-4 px-8">
+    <header className="sticky top-0 right-0 left-0 z-10 flex h-20 items-center justify-between gap-4 px-4 lg:px-6 2xl:px-8">
       <div className="bg-background/85 absolute top-0 right-0 bottom-0 left-0 backdrop-blur-[4px]" />
       <div className="relative flex w-full items-center justify-between">
         <div>

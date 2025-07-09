@@ -3,11 +3,19 @@ import Link from 'next/link';
 
 export function AppLayoutFooter() {
   return (
-    <footer className="flex h-12 items-center justify-between px-8 text-sm font-medium text-slate-400">
-      <div>{new Date().getFullYear()} &copy; Todos os direitos reservados.</div>
-      <div className="flex items-center gap-4">
-        <Link href="#">Termos de uso</Link>
-        <Link href="#">Política de privacidade</Link>
+    <footer className="flex items-center justify-between gap-4 px-4 py-3 text-sm font-medium text-slate-400 lg:px-6 2xl:px-8">
+      <div className="info flex w-full flex-col md:flex-row md:justify-between">
+        <div className="copyright">
+          {new Date().getFullYear()} &copy; Todos os direitos reservados.
+        </div>
+        <div className="links">
+          <div className="flex gap-4">
+            <Link href="#">Termos de uso</Link>
+            <Link href="#">Política de privacidade</Link>
+          </div>
+        </div>
+      </div>
+      <div className="about">
         <Link href="https://bussoladagestao.com.br" target="_blank">
           <Image
             src="/images/by-bussola-da-gestao.svg"

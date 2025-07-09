@@ -20,40 +20,43 @@ interface ComponentProps {
 export function CargoView({ cargo }: ComponentProps) {
   const router = useRouter();
 
-  const handleDelete = useCallback(async (id: string) => {
-    if (cargo.colaboradores && cargo.colaboradores.length > 0) {
-      notification({
-        message:
-          'Cargo possui colaboradores cadastrados. Não é possível excluir.',
-        type: 'warning',
-      });
+  const handleDelete = useCallback(
+    async (id: string) => {
+      if (cargo.colaboradores && cargo.colaboradores.length > 0) {
+        notification({
+          message:
+            'Cargo possui colaboradores cadastrados. Não é possível excluir.',
+          type: 'warning',
+        });
 
-      return;
-    }
+        return;
+      }
 
-    Dialog.ConfirmDelete.fire({
-      title: 'Excluir cargo',
-      text: 'Tem certeza que deseja excluir esse cargo?',
-      confirmButtonText: 'Excluir',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: async () => {
-        return axios
-          .delete(`/api/cargo/${id}`)
-          .then(() => {
-            notification({
-              message: 'Cargo excluido com sucesso',
-              type: 'success',
+      Dialog.ConfirmDelete.fire({
+        title: 'Excluir cargo',
+        text: 'Tem certeza que deseja excluir esse cargo?',
+        confirmButtonText: 'Excluir',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          return axios
+            .delete(`/api/cargo/${id}`)
+            .then(() => {
+              notification({
+                message: 'Cargo excluido com sucesso',
+                type: 'success',
+              });
+              router.push('/cadastro/cargo');
+              return;
+            })
+            .catch((error) => {
+              Dialog.Confirm.showValidationMessage(`Erro: ${error.message}`);
             });
-            router.push('/cadastro/cargo');
-            return;
-          })
-          .catch((error) => {
-            Dialog.Confirm.showValidationMessage(`Erro: ${error.message}`);
-          });
-      },
-    });
-  }, []);
+        },
+      });
+    },
+    [cargo.colaboradores, router],
+  );
 
   return (
     <Card.Root>

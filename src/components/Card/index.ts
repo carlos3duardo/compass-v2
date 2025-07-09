@@ -2,6 +2,8 @@ import { CardBody } from './CardBody';
 import { CardDescription } from './CardDescription';
 import { CardFooter } from './CardFooter';
 import { CardFooterSection } from './CardFooterSection';
+import { CardGrid } from './CardGrid';
+import { CardGridItem } from './CardGridItem';
 import { CardHeader } from './CardHeader';
 import { CardHeaderSection } from './CardHeaderSection';
 import { CardRoot } from './CardRoot';
@@ -14,6 +16,8 @@ export const Card = {
   HeaderSection: CardHeaderSection,
   Title: CardTitle,
   Body: CardBody,
+  Grid: CardGrid,
+  GridItem: CardGridItem,
   Footer: CardFooter,
   FooterSection: CardFooterSection,
   Description: CardDescription,

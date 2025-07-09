@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { AppLayout } from '@/components';
+
+import { EquipeTabela } from './_components/EquipeTabela';
 
 export const metadata: Metadata = {
   title: 'Equipes',
@@ -17,7 +20,11 @@ export default function CadastroPage() {
           { label: 'Equipes', href: '/cadastro/equipe' },
         ]}
       />
-      <AppLayout.Content>Equipes</AppLayout.Content>
+      <AppLayout.Content>
+        <Suspense>
+          <EquipeTabela />
+        </Suspense>
+      </AppLayout.Content>
     </>
   );
 }

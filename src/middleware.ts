@@ -10,6 +10,10 @@ const publicRoutes = [
     whenAuthenticated: 'next',
   },
   {
+    path: '/buttons',
+    whenAuthenticated: 'next',
+  },
+  {
     path: '/login',
     whenAuthenticated: 'redirect',
   },

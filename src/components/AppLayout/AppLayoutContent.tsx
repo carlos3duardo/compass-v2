@@ -6,5 +6,9 @@ interface ComponentProps {
   className?: string;
 }
 export function AppLayoutContent({ children, className }: ComponentProps) {
-  return <main className={twMerge('flex-1 px-8', className)}>{children}</main>;
+  return (
+    <main className={twMerge('flex-1 px-4 lg:px-6 2xl:px-8', className)}>
+      {children}
+    </main>
+  );
 }

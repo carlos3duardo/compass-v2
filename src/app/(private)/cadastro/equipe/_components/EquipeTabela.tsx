@@ -3,37 +3,51 @@
 import Link from 'next/link';
 
 import { Button, DataTable, DataTableColumnProps } from '@/components';
-import { ApiCargoProps } from '@/types';
+import { ApiEquipeRowProps } from '@/types';
 
 const columns = [
   {
     field: 'nome',
     label: 'Nome',
     thClassName: 'text-left',
-    content: ({ id, nome }: ApiCargoProps) => {
+    content: ({ id, nome }: ApiEquipeRowProps) => {
       return (
-        <div className="flex items-center gap-4">
-          <Link prefetch={false} href={`/cadastro/cargo/${id}`}>
-            {nome}
-          </Link>
-        </div>
+        <Link prefetch={false} href={`/cadastro/equipe/${id}`}>
+          {nome}
+        </Link>
       );
     },
   },
   {
-    field: 'situacao',
-    label: 'Situação',
-    thClassName: 'text-left',
-  },
-  {
-    field: 'qtde_colaboradores',
-    label: 'Colaboradores',
+    field: 'membros_count',
+    label: 'Membros',
     thClassName: 'text-center',
     tdClassName: 'text-center',
+    content: ({ id, membros_count }: ApiEquipeRowProps) => {
+      return (
+        <Link prefetch={false} href={`/cadastro/colaborador/${id}`}>
+          {membros_count}
+        </Link>
+      );
+    },
+  },
+  {
+    field: 'superior.id',
+    label: 'Equipe superior',
+    thClassName: 'text-left',
+    content: ({ id, superior }: ApiEquipeRowProps) => {
+      return superior ? (
+        <Link prefetch={false} href={`/cadastro/equipe/${id}`}>
+          {superior.nome}
+        </Link>
+      ) : (
+        ''
+      );
+    },
   },
 ] as DataTableColumnProps[];
 
-export function CargoTabela() {
+export function EquipeTabela() {
   return (
     <DataTable.Root>
       <DataTable.Header>
@@ -41,14 +55,14 @@ export function CargoTabela() {
           <DataTable.InputSearch />
         </DataTable.HeaderSection>
         <DataTable.HeaderSection>
-          <Link href="/cadastro/cargo/adicionar">
-            <Button>Adicionar cargo</Button>
+          <Link href="/cadastro/equipe/adicionar">
+            <Button>Adicionar equipe</Button>
           </Link>
         </DataTable.HeaderSection>
       </DataTable.Header>
       <DataTable.Content
-        queryId="cargos"
-        dataSrc="/api/cargo"
+        queryId="equipes"
+        dataSrc="/api/equipe"
         columns={columns}
       />
       <DataTable.Footer>
