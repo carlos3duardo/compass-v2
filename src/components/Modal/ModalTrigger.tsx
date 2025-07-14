@@ -1,5 +1,6 @@
-import { ReactNode, useContext } from 'react';
 import md5 from 'md5';
+import { ReactNode, useContext } from 'react';
+
 import { ModalContext } from './ModalContext';
 
 interface ModalTriggerProps {

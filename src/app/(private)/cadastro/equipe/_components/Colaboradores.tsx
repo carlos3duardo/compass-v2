@@ -8,8 +8,9 @@ import Link from 'next/link';
 import { useCallback, useState } from 'react';
 
 import { Button, Dialog, Modal } from '@/components';
-import { initials } from '@/helpers';
+import { capitalize, initials } from '@/helpers';
 import { notification } from '@/lib/client';
+import { ApiEquipeProps } from '@/types';
 
 import { AdicionarColaboradores } from './AdicionarColaboradores';
 
@@ -27,11 +28,11 @@ type ColaboradorProps = {
 };
 
 interface ComponentProps {
-  equipeId: string;
+  equipe: ApiEquipeProps;
   colaboradores: ColaboradorProps[];
 }
 
-export function Colaboradores({ equipeId, colaboradores }: ComponentProps) {
+export function Colaboradores({ equipe, colaboradores }: ComponentProps) {
   const [membros, setMembros] = useState<ColaboradorProps[]>(colaboradores);
 
   const handleRemoveColaborador = useCallback(
@@ -44,7 +45,7 @@ export function Colaboradores({ equipeId, colaboradores }: ComponentProps) {
         showLoaderOnConfirm: true,
         preConfirm: async () => {
           return axios
-            .delete(`/api/equipe/${equipeId}/colaborador/${id}`)
+            .delete(`/api/equipe/${equipe.id}/colaborador/${id}`)
             .then(() => {
               notification({
                 message: 'Colaborador removido com sucesso',
@@ -59,7 +60,7 @@ export function Colaboradores({ equipeId, colaboradores }: ComponentProps) {
         },
       });
     },
-    [equipeId],
+    [equipe],
   );
 
   return (
@@ -73,7 +74,12 @@ export function Colaboradores({ equipeId, colaboradores }: ComponentProps) {
             <Button size="sm">Gerenciar membros</Button>
           </Modal.Trigger>
           <Modal.Container>
-            <AdicionarColaboradores />
+            <AdicionarColaboradores
+              titulo={`Gerenciar membros da equipe ${capitalize(equipe.nome)}`}
+              equipe={equipe}
+              membros={membros}
+              updateMembros={setMembros}
+            />
           </Modal.Container>
         </Modal.Root>
       </header>

@@ -85,7 +85,7 @@ export function EquipeView({ equipe }: ComponentProps) {
           <div className="w-full xl:w-1/2">
             {equipe.colaboradores && (
               <Colaboradores
-                equipeId={equipe.id}
+                equipe={equipe}
                 colaboradores={equipe.colaboradores}
               />
             )}
