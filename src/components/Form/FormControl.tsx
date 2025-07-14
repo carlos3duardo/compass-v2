@@ -19,13 +19,17 @@ export function FormControl({
 }: FormControlProps) {
   return (
     <div
+      data-slot="form-control"
       className={twMerge(
-        'control col-span-12 w-full group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12 group-[.layout-horizontal]:gap-4',
+        'col-span-12 w-full group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12 group-[.layout-horizontal]:gap-1 md:group-[.layout-horizontal]:gap-4',
         className,
       )}
     >
-      {label && (
-        <div className="group-[.layout-horizontal] group-[.layout-horizontal]:col-span-3 group-[.layout-horizontal]:flex group-[.layout-horizontal]:h-10 group-[.layout-horizontal]:items-center group-[.layout-horizontal]:justify-end">
+      {label ? (
+        <div
+          data-slot="label"
+          className="group-[.layout-horizontal] group-[.layout-horizontal]:col-span-12 group-[.layout-horizontal]:flex group-[.layout-horizontal]:items-center md:group-[.layout-horizontal]:col-span-3 md:group-[.layout-horizontal]:h-10 md:group-[.layout-horizontal]:justify-end"
+        >
           <label
             className="text-muted-foreground text-sm leading-none font-medium group-[.layout-horizontal]:after:content-[':']"
             htmlFor={htmlFor}
@@ -33,9 +37,19 @@ export function FormControl({
             {label}
           </label>
         </div>
+      ) : (
+        <div
+          data-slot="label"
+          className="hidden md:block md:group-[.layout-horizontal]:col-span-3 md:group-[.layout-horizontal]:justify-end"
+        >
+          &nbsp;
+        </div>
       )}
-      <div className="group-[.layout-horizontal]:col-span-9 group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12">
-        <div className={twMerge('', className)}>
+      <div
+        data-slot="input"
+        className="group-[.layout-horizontal]:col-span-12 group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12 md:group-[.layout-horizontal]:col-span-9"
+      >
+        <div className={twMerge('col-span-12', className)}>
           {children}
           {error && (
             <div className="text-destructive/70 mt-1 flex items-center gap-1 pl-1 text-xs font-medium">

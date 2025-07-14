@@ -4,11 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { isAxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { FocusEvent, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button, Form } from '@/components';
+import { uf } from '@/data';
+import { removeMask } from '@/helpers/masks';
+import { notification } from '@/lib/client';
 import { ApiColaboradorListProps, ApiUnidadeProps } from '@/types';
 
 interface ComponentProps {
@@ -16,6 +19,8 @@ interface ComponentProps {
   colaboradores: ApiColaboradorListProps[];
 }
 export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
+  const [isSearchingCep, setIsSearchingCep] = useState(false);
+
   const router = useRouter();
 
   const formSchema = z.object({
@@ -33,7 +38,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
     municipio: z.string().optional().or(z.literal('')),
     uf: z.string().optional().or(z.literal('')),
     responsavel_id: z.string().optional().or(z.literal('')),
-    ativo: z.string().optional().or(z.literal('')),
+    ativo: z.enum(['0', '1'], { message: 'Campo não informado ou inválido.' }),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -47,7 +52,10 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
     formState: { errors, isSubmitting },
     reset,
     setError,
+    setValue,
   } = methods;
+
+  console.log(errors);
 
   useEffect(() => {
     if (unidade) {
@@ -67,6 +75,42 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
       });
     }
   }, [unidade, reset]);
+
+  const handleOnCepBlur = useCallback(
+    async (evt: FocusEvent<HTMLInputElement>) => {
+      setIsSearchingCep(true);
+
+      setValue('logradouro', '');
+      setValue('bairro', '');
+      setValue('municipio', '');
+      setValue('uf', '');
+
+      const cep = removeMask(evt.target.value);
+
+      axios
+        .get(`https://brasilapi.com.br/api/cep/v2/${cep}`)
+        .then((response) => {
+          if (response.data.erro) {
+            return;
+          }
+          setValue('logradouro', response.data.street);
+          setValue('bairro', response.data.neighborhood);
+          setValue('municipio', response.data.city);
+          setValue('uf', response.data.state);
+        })
+        .catch((error) => {
+          console.error({ error });
+          notification({
+            message: 'Ocorreu um erro ao buscar o CEP.',
+            type: 'error',
+          });
+        })
+        .finally(() => {
+          setIsSearchingCep(false);
+        });
+    },
+    [setValue],
+  );
 
   async function formSubmit(data: FormData) {
     const formData = {
@@ -116,6 +160,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="nome"
                 name="nome"
+                uppercase
                 error={errors.nome?.message}
               />
             </Form.Control>
@@ -125,7 +170,8 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               className="col-span-4"
               error={errors.cnpj?.message}
             >
-              <Form.InputText
+              <Form.MaskInput
+                mask="99.999.999/9999-99"
                 id="cnpj"
                 name="cnpj"
                 error={errors.cnpj?.message}
@@ -139,6 +185,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="codigo"
                 name="codigo"
+                uppercase
                 error={errors.codigo?.message}
               />
             </Form.Control>
@@ -165,7 +212,14 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               className="col-span-2"
               error={errors.cep?.message}
             >
-              <Form.InputText id="cep" name="cep" error={errors.cep?.message} />
+              <Form.MaskInput
+                mask="99.999-999"
+                id="cep"
+                name="cep"
+                error={errors.cep?.message}
+                onBlur={(evt) => handleOnCepBlur(evt)}
+                isLoading={isSearchingCep}
+              />
             </Form.Control>
             <Form.Control
               label="Endereço"
@@ -175,6 +229,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="logradouro"
                 name="logradouro"
+                uppercase
                 error={errors.logradouro?.message}
               />
             </Form.Control>
@@ -186,6 +241,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="numero"
                 name="numero"
+                uppercase
                 error={errors.numero?.message}
               />
             </Form.Control>
@@ -197,6 +253,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="complemento"
                 name="complemento"
+                uppercase
                 error={errors.complemento?.message}
               />
             </Form.Control>
@@ -209,6 +266,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="bairro"
                 name="bairro"
+                uppercase
                 error={errors.bairro?.message}
               />
             </Form.Control>
@@ -221,6 +279,7 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               <Form.InputText
                 id="municipio"
                 name="municipio"
+                uppercase
                 error={errors.municipio?.message}
               />
             </Form.Control>
@@ -230,7 +289,13 @@ export function UnidadeFormulario({ unidade, colaboradores }: ComponentProps) {
               className="col-span-2"
               error={errors.uf?.message}
             >
-              <Form.InputText id="uf" name="uf" error={errors.uf?.message} />
+              <Form.Select
+                id="uf"
+                name="uf"
+                error={errors.uf?.message}
+                placeholder="Selecione"
+                options={uf.map((uf) => ({ value: uf.sigla, label: uf.sigla }))}
+              />
             </Form.Control>
 
             <Form.Control

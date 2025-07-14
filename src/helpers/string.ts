@@ -38,6 +38,17 @@ export function capitalize(str: string) {
   const parts = str.split(' ');
 
   return parts.reduce((acc, part) => {
+    const siglas = ['RH', 'TI'];
+    const pronomes = ['de'];
+
+    if (siglas.includes(part.toUpperCase())) {
+      return `${acc} ${part.toUpperCase()}`;
+    }
+
+    if (pronomes.includes(part.toLowerCase())) {
+      return `${acc} ${part.toLowerCase()}`;
+    }
+
     return `${acc} ${part.charAt(0).toUpperCase()}${part.slice(1).toLowerCase()}`;
   }, '');
 }

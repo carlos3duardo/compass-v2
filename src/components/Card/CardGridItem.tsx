@@ -27,7 +27,7 @@ export function CardGridItem({
     >
       {label && (
         <span
-          className="block text-sm font-normal text-slate-400"
+          className="block text-sm leading-tight font-normal text-slate-400"
           title={tooltip}
         >
           {label}

@@ -101,3 +101,9 @@ export function maskTelefone(numero: string | null) {
 
   return numero;
 }
+
+export function removeMask(value: string | null | undefined) {
+  if (!value) return '';
+
+  return value.replace(/\D/g, '');
+}
