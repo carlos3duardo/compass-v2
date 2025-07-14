@@ -39,7 +39,7 @@ export function capitalize(str: string) {
 
   return parts.reduce((acc, part) => {
     const siglas = ['RH', 'TI'];
-    const pronomes = ['de'];
+    const pronomes = ['de', 'a'];
 
     if (siglas.includes(part.toUpperCase())) {
       return `${acc} ${part.toUpperCase()}`;

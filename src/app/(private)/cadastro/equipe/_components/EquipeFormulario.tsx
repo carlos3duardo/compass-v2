@@ -103,6 +103,7 @@ export function EquipeFormulario({ equipe, superiores }: ComponentProps) {
                 id="nome"
                 name="nome"
                 error={errors.nome?.message}
+                uppercase
               />
             </Form.Control>
 
@@ -142,7 +143,7 @@ export function EquipeFormulario({ equipe, superiores }: ComponentProps) {
               />
             </Form.Control>
 
-            <Form.Control error={errors.situacao?.message}>
+            <Form.Control error={errors.tipo?.message}>
               <div className="col-span-12 flex items-center justify-between text-sm font-medium">
                 <Form.Checkbox
                   name="tipo"

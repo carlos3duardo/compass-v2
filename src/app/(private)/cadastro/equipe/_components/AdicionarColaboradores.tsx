@@ -157,7 +157,7 @@ export function AdicionarColaboradores({
               {membros.map((membro) => (
                 <li
                   key={membro.id}
-                  className="bg-muted flex items-center justify-between rounded p-2"
+                  className="bg-card flex items-center justify-between rounded p-2"
                 >
                   <div className="flex items-center gap-2">
                     <figure className="w-[38px]">
@@ -202,9 +202,11 @@ export function AdicionarColaboradores({
               ))}
             </ul>
           ) : (
-            <>...</>
+            <span className="text-sm font-medium">
+              Nenhum membro adicionado
+            </span>
           )}
-          <div>
+          <div className="bg-card p-2">
             <Input
               id="busca"
               type="text"
@@ -212,7 +214,7 @@ export function AdicionarColaboradores({
               onChange={(e) => setBusca(e.target.value)}
               value={busca}
             />
-            <div className="bg-muted h-48 overflow-y-auto">
+            <div className="h-48 overflow-y-auto">
               {sugestoes.length === 0 ? (
                 <div className="flex h-[inherit] items-center justify-center p-4 text-center text-sm">
                   Faça uma busca por colaborador
@@ -220,11 +222,11 @@ export function AdicionarColaboradores({
                   (Mínimo de 3 caracteres)
                 </div>
               ) : (
-                <ul className="flex h-[inherit] flex-col gap-1 bg-white py-2">
+                <ul className="flex h-[inherit] flex-col gap-1 py-2">
                   {sugestoes.map((sugestao) => (
                     <li
                       key={sugestao.id}
-                      className="bg-muted hover:bg-primary/20 px-2 py-2 text-sm hover:cursor-pointer"
+                      className="bg-muted hover:bg-primary/20 rounded px-2 py-2 text-sm hover:cursor-pointer"
                       onClick={() => handleAdicionaColaborador(sugestao.id)}
                     >
                       {sugestao.nome}

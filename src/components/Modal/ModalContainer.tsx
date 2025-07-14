@@ -34,7 +34,7 @@ export function ModalContainer({ children, className }: ModalContainerProps) {
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/40">
       <div
         className={twMerge(
-          'relative max-w-[80%] min-w-[600px] rounded-md bg-white p-3 shadow',
+          'bg-background relative max-w-[80%] min-w-[600px] rounded-md p-3 shadow',
           className,
         )}
       >
