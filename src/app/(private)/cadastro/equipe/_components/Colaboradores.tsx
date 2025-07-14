@@ -7,9 +7,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 
-import { Button, Dialog } from '@/components';
+import { Button, Dialog, Modal } from '@/components';
 import { initials } from '@/helpers';
 import { notification } from '@/lib/client';
+
+import { AdicionarColaboradores } from './AdicionarColaboradores';
 
 type ColaboradorProps = {
   id: string;
@@ -66,7 +68,14 @@ export function Colaboradores({ equipeId, colaboradores }: ComponentProps) {
         <h3>
           <strong>Colaboradores</strong>
         </h3>
-        <Button size="sm">Adicionar membros</Button>
+        <Modal.Root>
+          <Modal.Trigger id="equipe-adicionar-colaboradores">
+            <Button size="sm">Gerenciar membros</Button>
+          </Modal.Trigger>
+          <Modal.Container>
+            <AdicionarColaboradores />
+          </Modal.Container>
+        </Modal.Root>
       </header>
       {membros.length >= 1 ? (
         <ul className="mt-4 grid grid-cols-2 gap-4">

@@ -12,6 +12,7 @@ import Input from './FormElements/Input';
 import { ModeToggle } from './Header/ModeToggle';
 import { Notifications } from './Header/Notifications';
 import { UserMenu } from './Header/UserMenu';
+import { Modal } from './Modal';
 import { NavigationMenu } from './NavigatioMenu/NavigationMenu';
 import { Popover } from './Popover';
 import ScreenSizeViewer from './ScreenSizeViewer';
@@ -26,6 +27,7 @@ export {
   DropdownMenu,
   Form,
   Input,
+  Modal,
   ModeToggle,
   NavigationMenu,
   NotFoundError,
