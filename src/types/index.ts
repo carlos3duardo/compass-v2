@@ -4,6 +4,7 @@ import { ApiColaboradorListProps } from './api/ApiColaboradorListProps';
 import { ApiColaboradorSituacaoProps } from './api/ApiColaboradorSituacaoProps';
 import { ApiEquipeProps } from './api/ApiEquipeProps';
 import { ApiEquipeRowProps } from './api/ApiEquipeRowProps';
+import { ApiSetorProps, ApiSetorRowProps } from './api/ApiSetorProps';
 import { ApiUnidadeProps, ApiUnidadeRowProps } from './api/ApiUnidadeProps';
 
 export type {
@@ -13,6 +14,8 @@ export type {
   ApiColaboradorSituacaoProps,
   ApiEquipeProps,
   ApiEquipeRowProps,
+  ApiSetorProps,
+  ApiSetorRowProps,
   ApiUnidadeProps,
   ApiUnidadeRowProps,
 };

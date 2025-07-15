@@ -16,6 +16,7 @@ import { Modal } from './Modal';
 import { NavigationMenu } from './NavigatioMenu/NavigationMenu';
 import { Popover } from './Popover';
 import ScreenSizeViewer from './ScreenSizeViewer';
+import { Tooltip } from './Tooltip';
 
 export {
   AppLayout,
@@ -34,6 +35,7 @@ export {
   Notifications,
   Popover,
   ScreenSizeViewer,
+  Tooltip,
   UserMenu,
 };
 

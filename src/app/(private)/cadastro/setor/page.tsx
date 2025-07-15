@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { AppLayout } from '@/components';
+
+import { SetorTabela } from './components/SetorTabela';
 
 export const metadata: Metadata = {
   title: 'Setores',
@@ -17,7 +20,11 @@ export default function CadastroPage() {
           { label: 'Setores', href: '/cadastro/setor' },
         ]}
       />
-      <AppLayout.Content>Setores</AppLayout.Content>
+      <AppLayout.Content>
+        <Suspense>
+          <SetorTabela />
+        </Suspense>
+      </AppLayout.Content>
     </>
   );
 }
